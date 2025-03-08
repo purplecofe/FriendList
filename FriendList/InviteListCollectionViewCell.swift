@@ -1,5 +1,5 @@
 //
-//  InviteListTableViewCell.swift
+//  InviteListCollectionViewCell.swift
 //  FriendList
 //
 //  Created by ChongKai Huang on 2025/3/6.
@@ -7,16 +7,22 @@
 
 import UIKit
 
-class InviteListTableViewCell: UITableViewCell {
+class InviteListCollectionViewCell: UICollectionViewCell {
     private lazy var containerView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
         view.layer.cornerRadius = 6
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOpacity = 0.15
+        view.layer.shadowOffset = CGSize(width: 0, height: 2)
+        view.layer.shadowRadius = 4
+        view.layer.masksToBounds = false
         return view
     }()
     private lazy var ivUserAvatar: UIImageView = {
         let iv = UIImageView()
         iv.layer.cornerRadius = 20
+        iv.backgroundColor = .red
         return iv
     }()
     private lazy var lbUserName: UILabel = {
@@ -43,8 +49,8 @@ class InviteListTableViewCell: UITableViewCell {
         return btn
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setupUI()
     }
     
@@ -61,7 +67,7 @@ class InviteListTableViewCell: UITableViewCell {
         contentView.addSubview(containerView)
         
         containerView.snp.makeConstraints({
-            $0.edges.equalToSuperview().inset(UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0))
+            $0.edges.equalToSuperview().inset(UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 30))
         })
         ivUserAvatar.snp.makeConstraints({
             $0.top.leading.bottom.equalToSuperview().inset(UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 0))
@@ -80,8 +86,12 @@ class InviteListTableViewCell: UITableViewCell {
             $0.size.equalTo(30)
         })
         btnAccept.snp.makeConstraints({
-            $0.trailing.equalTo(btnDeny.snp.leading).offset(15)
+            $0.trailing.equalTo(btnDeny.snp.leading).offset(-15)
             $0.top.bottom.equalToSuperview().inset(20)
         })
+    }
+    
+    func configure(friend: Friend) {
+        lbUserName.text = friend.name
     }
 }

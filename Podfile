@@ -7,6 +7,7 @@ target 'FriendList' do
 
   # Pods for FriendList
     pod 'SnapKit', '~> 5.7.0'
+    pod 'XLPagerTabStrip', '~> 9.0'
 
   target 'FriendListTests' do
     inherit! :search_paths

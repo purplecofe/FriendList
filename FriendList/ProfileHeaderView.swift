@@ -10,25 +10,17 @@ import UIKit
 class ProfileHeaderView: UIView {
     private lazy var lbUserName: UILabel = {
         let lb = UILabel()
-        lb.text = "紫晽"
         lb.textColor = .greyishBrown
         lb.font = .systemFont(ofSize: 17, weight: .medium)
         return lb
     }()
     private lazy var lbKoKoID: UILabel = {
         let lb = UILabel()
-        let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor(resource: .greyishBrown),
-                                                         .font: UIFont.systemFont(ofSize: 13, weight: .regular)]
-        var attributedString = NSMutableAttributedString(string: "KOKO ID：olylinhuang", attributes: attributes)
-        let attachment = NSTextAttachment(image: .icInfoBackDeepGray)
-        attachment.bounds = CGRect(x: 0, y: -3, width: 16, height: 16)
-        attributedString.append(NSAttributedString(attachment: attachment))
-        lb.attributedText = attributedString
         return lb
     }()
     private lazy var ivUserAvatar: UIImageView = {
         let iv = UIImageView()
-        iv.backgroundColor = .systemRed
+        iv.image = .imgFriendsList
         iv.layer.cornerRadius = 26
         return iv
     }()
@@ -60,5 +52,16 @@ class ProfileHeaderView: UIView {
             $0.size.equalTo(52)
             $0.top.bottom.trailing.equalToSuperview()
         })
+    }
+    
+    func configure(userProfile: UserProfile) {
+        lbUserName.text = userProfile.name
+        let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor(resource: .greyishBrown),
+                                                         .font: UIFont.systemFont(ofSize: 13, weight: .regular)]
+        let attributedString = NSMutableAttributedString(string: "KOKO ID：\(userProfile.kokoid)", attributes: attributes)
+        let attachment = NSTextAttachment(image: .icInfoBackDeepGray)
+        attachment.bounds = CGRect(x: 0, y: -3, width: 16, height: 16)
+        attributedString.append(NSAttributedString(attachment: attachment))
+        lbKoKoID.attributedText = attributedString
     }
 }
